@@ -29,9 +29,7 @@ $con=  pg_connect($cadena) or die("Error conexion".  pg_last_error());
 }
 
 function actualizar_ruta($id,$salida,$llegada){
-    if($salida != NULL && $llegada != NULL && $id != NULL){
-        $cadena="host='192.168.169.90' port='5432' dbname='postgres' user='postgres' password='1npb0n1t4'";
-            $con=  pg_connect($cadena) or die("Error conexion".  pg_last_error());
+    if($salida != NULL && $llegada != NULL && $id != NULL){        
             $sql="UPDATE ruta SET salida=".$salida.", llegada=".$llegada." WHERE id=".$id.";";     
             $result=  pg_query($sql) or die("Error sql".  pg_last_error());
             var_dump($result);
@@ -62,13 +60,13 @@ function eliminar_ruta($id){
 
 function guardar_ruta($salida,$llegada){
     if($salida != NULL && $llegada != NULL){
-        $variable=4;  
+        $variable=6;  
         echo $variable;
                 $sql="INSERT INTO ruta(salida, llegada,id) VALUES (".$salida.",".$llegada.",".$variable.");";            
 		//$sql="select * from ruta where oid=".$id.";";
 		$result=  pg_query($sql) or die("Error sql".  pg_last_error());
                 var_dump($result);
-                pg_close($con);
+               //
                 //return $cont;
 	}
         else{
