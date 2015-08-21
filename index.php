@@ -7,5 +7,4 @@ print("Password: <input type=\"password\" name=\"password\" id=\"password\"><br 
 print("<button type=\"submit\" name=\"submitButton\" id=\"submitButton\">Login</button>\n");
 print("</form>\n");
 //prueba comentario
-//segundo comentario
 ?>
