@@ -30,7 +30,7 @@ $con=  pg_connect($cadena) or die("Error conexion".  pg_last_error());
 
 function actualizar_ruta($id,$salida,$llegada){
     if($salida != NULL && $llegada != NULL && $id != NULL){        
-            $sql="UPDATE ruta SET salida=".$salida.", llegada=".$llegada." WHERE id=".$id.";";     
+            $sql="UPDATE ruta SET salida='".$salida."', llegada='".$llegada."' WHERE id=".$id.";";     
             $result=  pg_query($sql) or die("Error sql".  pg_last_error());
             var_dump($result);
             pg_close($con);
@@ -59,10 +59,8 @@ function eliminar_ruta($id){
 }
 
 function guardar_ruta($salida,$llegada){
-    if($salida != NULL && $llegada != NULL){
-        $variable=6;  
-        echo $variable;
-                $sql="INSERT INTO ruta(salida, llegada,id) VALUES (".$salida.",".$llegada.",".$variable.");";            
+    if($salida != NULL && $llegada != NULL){ 
+                $sql="INSERT INTO ruta(salida, llegada) VALUES ('".$salida."','".$llegada."');";            
 		//$sql="select * from ruta where oid=".$id.";";
 		$result=  pg_query($sql) or die("Error sql".  pg_last_error());
                 var_dump($result);
