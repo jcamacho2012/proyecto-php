@@ -14,7 +14,7 @@ if($cont!=0){
 		<td>' . $row['salida'] . '</td>
 		<td align="center">' . $row['llegada'] . '</td>		
 		<td><img src="images/edit.png" onclick="editar(' . $row['id'] . ')"></td>
-		<td><a href="index.php?op=e&id=' . $row['id'] . '"><img src="images/borrar.png"></a></td>
+                <td><img src="images/borrar.png" onclick="eliminar(' . $row['id'] . ')"></td>		
 	</tr>';  
         
         }

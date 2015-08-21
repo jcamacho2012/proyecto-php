@@ -45,9 +45,24 @@ function actualizar_ruta($id,$salida,$llegada){
     
 }
 
+function eliminar_ruta($id){
+    if($id != NULL){      
+            $sql="DELETE FROM ruta WHERE id=".$id.";";               
+            $result=  pg_query($sql) or die("Error sql".  pg_last_error());
+            var_dump($result);
+            pg_close($con);
+            //return $cont;
+	}
+        else{
+            echo"cadena vacia desde la funcion eliminar_ruta";
+        }
+ 
+    
+}
+
 function guardar_ruta($salida,$llegada){
     if($salida != NULL && $llegada != NULL){
-        $variable=3;  
+        $variable=4;  
         echo $variable;
                 $sql="INSERT INTO ruta(salida, llegada,id) VALUES (".$salida.",".$llegada.",".$variable.");";            
 		//$sql="select * from ruta where oid=".$id.";";
@@ -72,18 +87,47 @@ function editar_registro($id){
 	<input type="hidden" name="id" value="' . $row['id'] . '"/>
 	<table align="center" border=0>
 			<tr>
-				<td colspan="2" align="center"><b>Datos de ruta</b></td>
+				<td colspan="2" align="center"><b>Datos de Ruta</b></td>
 			</tr>
 			<tr>
 				<td><b>Salida: </b></td>
-				<td><input type="text" name="salida" value="' . $row['salida'] . '"></td>
+				<td><input type="text"  name="salida" value="' . $row['salida'] . '"></td>
 			</tr>
 			<tr>
 				<td><b>Llegada: </b></td>
-				<td><input type="text" name="llegada" size="2" value="' . $row['llegada'] . '"></td>
+				<td><input type="text"  name="llegada" size="2" value="' . $row['llegada'] . '"></td>
 			</tr>			
 			<tr>
-				<td colspan=2 align="center"><input type="submit" name="envia" value="Guardar" onclick="cerrar()"></td>
+				<td colspan=2 align="center"><input type="submit" name="envia" value="Guardar" onclick="cerrar()"></td>                                
+			</tr>								
+		</table>
+		</form>';
+		return $retval;
+}
+
+function eliminar_registro($id){
+        $sql = "SELECT * FROM ruta WHERE id=" . $id .";";
+        $res=  pg_query($sql) or die("Error sql".  pg_last_error());
+        $row = pg_fetch_array($res,NULL,PGSQL_ASSOC);
+
+	$retval = '
+	<form name="contacto" action="" method="POST">
+	<input type="hidden" name="id" value="' . $row['id'] . '"/>
+	<table align="center" border=0>
+			<tr>
+				<td colspan="2" align="center"><b>Dese eliminar el siguiente registro?</b></td>
+			</tr>
+			<tr>
+				<td><b>Salida: </b></td>
+				<td><input type="text" readonly="readonly" name="salida" value="' . $row['salida'] . '"></td>
+			</tr>
+			<tr>
+				<td><b>Llegada: </b></td>
+				<td><input type="text" readonly="readonly" name="llegada" size="2" value="' . $row['llegada'] . '"></td>
+			</tr>			
+			<tr>
+				<td colspan=2 align="center"><input type="submit" name="envia" value="Eliminar" onclick="cerrar()"></td>
+                                <td colspan=2 align="center"><input type="submit" name="cancela" value="Cancelar" onclick="cerrar()"></td>
 			</tr>								
 		</table>
 		</form>';

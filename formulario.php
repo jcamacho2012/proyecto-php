@@ -37,11 +37,15 @@ $("#tableID").load('tabla_ruta.php');
 </script>
 <script>
 		function abrir() {							
-			window.open("/Proyecto-PHP/agregar_ruta.php","","width=500,height=300");		
+			window.open("/proyecto-git-php/proyecto-php/agregar_ruta.php","","width=500,height=300");		
                 }
                 
                  function editar(id){
-                    window.open("/Proyecto-PHP/editar_ruta.php?id="+id,"","width=500,height=300");
+                    window.open("/proyecto-git-php/proyecto-php/editar_ruta.php?id="+id,"","width=500,height=300");
+                }
+                
+                 function eliminar(id){
+                  window.open("/proyecto-git-php/proyecto-php/eliminar_ruta.php?id="+id,"","width=500,height=300");                            
                 }
                 
                 function cargar(){
