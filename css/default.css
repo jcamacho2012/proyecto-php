@@ -147,6 +147,11 @@ form.register input.long{
     width: 247px;
     color: #505050;
 }
+
+form.register.row3.textarea{
+   width: 247px;
+    color: #505050;
+}
 form.register input.short{
     width: 40px;
     color: #505050;
