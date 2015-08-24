@@ -73,7 +73,7 @@ $("#tableID").load('tabla_ruta.php');
                     <input type="text"/>   
                     <label>Fecha de solicitud
                     </label>
-                    <input type="date" name="bday" value="<?php echo date('Y-m-d'); ?>" readonly=""/>
+                    <input type="date" name="fecha_solicitud" value="<?php echo date('Y-m-d'); ?>" readonly=""/>
                 </p>                
                 <p>
                      <label>Viaticos 
@@ -171,7 +171,7 @@ $("#tableID").load('tabla_ruta.php');
                     <label>Descripcion
                     </label>
                     <textarea class="textarea" style="resize:none" rows="4" cols="50">
-                        descripcion
+                       
                     </textarea>
                 </p>                              
             </fieldset>
@@ -181,15 +181,65 @@ $("#tableID").load('tabla_ruta.php');
                    <legend> Datos de Transporte
                 </legend>
                 <p class="agreement">
-                    <button  type="submit" name="submitButton" id="submitButton" onclick="abrir()" >Agregar Ruta</button>
+                    <button  type="button" name="submitButton" id="submitButton" onclick="abrir()" >Agregar Ruta</button>
                 </p>   
                  <p class="agreement">
                    <div id="tableID">
                         <?php include_once'tabla_ruta.php'; ?>  
                     </div>     
-                </p>                
+                </p>        
+               
             </fieldset>
-            <div><button class="button">Register &raquo;</button></div>
-        </form>      
+             <fieldset class="row5">
+                   <legend> Datos para Transferencia
+                </legend>
+                 <br />
+                <p>
+                    <label>Nombre del Banco
+                    </label>
+                    <input type="text" class="long" value="Banco del Pichincha"/>
+                </p>
+               
+                 <p>
+                    <label>Tipo de cuenta
+                    </label>
+                    <input type="text" class="long" value="Ahorro" />
+                </p>  
+                  <p>
+                    <label>Numero de cuenta
+                    </label>
+                    <input type="text" class="long" value="562145265" />
+                </p>           
+            </fieldset>
+            <br />
+            <fieldset class="row6">
+               <br />
+                   <legend> Firmas para Autorización
+                </legend>
+                <p>
+                    <label>Coordinador 
+                    </label>
+                    <select>
+                        <option>
+                        </option>
+                        <option value="1">NNN
+                        </option>
+                    </select>                   
+                </p> 
+                <p>
+                    <label>Direccion 
+                    </label>
+                    <select>
+                        <option>
+                        </option>
+                        <option value="1">NNN
+                        </option>
+                    </select>                   
+                </p>    
+            </fieldset>
+            <br />
+            <div><button class="button">Crear solicitud &raquo;</button></div>
+        </form>
+    
 </body>
 </html>

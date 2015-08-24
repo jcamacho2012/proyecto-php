@@ -7,12 +7,35 @@ $sql="select * from ruta";
 $result=  pg_query($sql) or die("Error sql".  pg_last_error());
 $cont=  pg_num_rows($result);
 if($cont!=0){  
-    echo "<table border='1' id='tableID'>";
+    echo "<table id='tableID'> <tr>"
+    . "<th>Tipo</th>"
+    . "<th>Nombre</th>"
+    . "<th>Ruta</th>"
+    . "<th colspan='2'>Salida</th>" 
+    . "<th colspan='2'>Llegada</th>"    
+    . "<th colspan='2'>Acciones</th>"
+    . "</tr>"
+    ."<tr>"
+    . "<th></th>"
+    . "<th></th>"
+    . "<th></th>"
+    . "<th>Fecha</th>"
+    . "<th>Hora</th>" 
+    . "<th>Fecha</th>"
+    . "<th>Hora</th>"    
+    . "<th></th>"
+    . "<th></th>"
+    . "</tr>";
     while($row=  pg_fetch_array($result,NULL,PGSQL_ASSOC)){
         echo '
 	<tr bgcolor=#CEE3F6>
+                <td>TIPO</td>
+                <td>NOMBRE</td>
+                <td>RUTA</td>
 		<td>' . $row['salida'] . '</td>
-		<td align="center">' . $row['llegada'] . '</td>		
+                <td>' . $row['salida'] . '</td>
+		<td align="center">' . $row['llegada'] . '</td>	
+                <td align="center">' . $row['llegada'] . '</td>	
 		<td><img src="images/edit.png" onclick="editar(' . $row['id'] . ')"></td>
                 <td><img src="images/borrar.png" onclick="eliminar(' . $row['id'] . ')"></td>		
 	</tr>';  

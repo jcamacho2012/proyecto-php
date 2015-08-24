@@ -121,8 +121,8 @@ form.register label{
     color:#444;
     width:98px;
     float: left;
-    text-align: right;
-    margin-right: 6px;
+    text-align: left;
+    margin-left: 6px;
     margin-top:2px;
 }
 form.register label.optional{
@@ -141,16 +141,13 @@ form.register input{
     width: 140px;
     color: #505050;
     float: left;
-    margin-right: 5px;
+    margin-left: 5px;
 }
 form.register input.long{
     width: 247px;
     color: #505050;
-}
-
-form.register.row3.textarea{
-   width: 247px;
-    color: #505050;
+    float: left;
+    margin-left: 1px;
 }
 form.register input.short{
     width: 40px;
@@ -233,6 +230,10 @@ p.agreement label{
     text-align:left;
     margin-top:3px;
 }
-
-
-
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+}
