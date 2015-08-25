@@ -29,6 +29,17 @@ function lista_ciudad(){
    
 }
 
+function lista_parroquia(){
+     $sql="select * from ecuador_parroquias order by nombre";               
+    $result=  pg_query($sql) or die("Error sql".  pg_last_error());  
+    while($row=  pg_fetch_array($result,NULL,PGSQL_ASSOC)){
+     $lista .= '<option value="' . $row['oid'] . '">' . $row['nombre'] . '		
+            </option>';         
+    }
+    return $lista;
+   
+}
+
 function lista_coordinador(){
      $retval= '<option>
                </option>

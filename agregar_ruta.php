@@ -71,8 +71,7 @@ require ("listas.php");
             <input type="submit" name="Submit" value="Guardar" onclick="cerrar()"/>
 		
 	</form>
-	
-<?php 
+	<?php 
 if(isset($_POST['nombre'])){
 	$salida=$_POST['nombre'];
 	}
