@@ -1,5 +1,6 @@
 <?php
 require ("class.php");
+require ("listas.php");
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
@@ -73,7 +74,7 @@ $("#tableID").load('tabla_ruta.php');
                     <input type="text"/>   
                     <label>Fecha de solicitud
                     </label>
-                    <input type="date" name="fecha_solicitud" value="<?php echo date('Y-m-d'); ?>" readonly=""/>
+                    <input  style="border: 1px solid #E1E1E1;" type="date" name="fecha_solicitud" value="<?php echo date('Y-m-d'); ?>" readonly=""/>
                 </p>                
                 <p>
                      <label>Viaticos 
@@ -108,41 +109,35 @@ $("#tableID").load('tabla_ruta.php');
                     <label>Provincia *
                     </label>
                     <select>
-                        <option>
-                        </option>
-                        <option value="1">Manabi
-                        </option>
+                       <?php echo lista_provincia() ?>
                     </select>                   
                 </p>
                 <p>
                     <label>Ciudad *
                     </label>
                     <select>
-                        <option>
-                        </option>
-                        <option value="1">Manta
-                        </option>
+                        <?php echo lista_ciudad() ?>
                     </select>
                 </p>
                 <p>
                     <label>Fecha de Salida
                     </label>
-                    <input type="date" name="bday"/>
+                    <input style="border: 1px solid #E1E1E1;" type="date" name="bday"/>
                 </p>
                 <p>
                     <label> Hora Salida
                     </label>
-                    <input type="time" name="bday"/>
+                    <input style="border: 1px solid #E1E1E1;" type="time" name="bday"/>
                 </p>
                   <p>
                     <label>Fecha de Llegada
                     </label>
-                    <input type="date" name="bday"/>
+                    <input style="border: 1px solid #E1E1E1;" type="date" name="bday"/>
                 </p>
                 <p>
                     <label> Hora Llegada
                     </label>
-                    <input type="time" name="bday"/>
+                    <input style="border: 1px solid #E1E1E1;" type="time" name="bday"/>
                 </p>
                 
             </fieldset>
@@ -163,14 +158,14 @@ $("#tableID").load('tabla_ruta.php');
                 <p>
                     <label>Integrantes
                     </label>
-                    <textarea placeholder="prueba" class="textarea" style="resize:none" rows="4" cols="50" >
+                    <textarea  placeholder="text" class="textarea" style="resize:none; border: 1px solid #E1E1E1;" rows="4" cols="50" >
                        
                     </textarea>
                 </p>
                 <p>
                     <label>Descripcion
                     </label>
-                    <textarea class="textarea" style="resize:none" rows="4" cols="50">
+                    <textarea class="textarea" style="resize:none; border: 1px solid #E1E1E1;" rows="4" cols="50">
                        
                     </textarea>
                 </p>                              
@@ -219,21 +214,15 @@ $("#tableID").load('tabla_ruta.php');
                 <p>
                     <label>Coordinador 
                     </label>
-                    <select>
-                        <option>
-                        </option>
-                        <option value="1">NNN
-                        </option>
+                    <select>   
+                        <?php echo lista_coordinador() ?>                  
                     </select>                   
                 </p> 
                 <p>
                     <label>Direccion 
                     </label>
                     <select>
-                        <option>
-                        </option>
-                        <option value="1">NNN
-                        </option>
+                         <?php echo lista_direccion() ?>  
                     </select>                   
                 </p>    
             </fieldset>

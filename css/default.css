@@ -148,6 +148,7 @@ form.register input.long{
     color: #505050;
     float: left;
     margin-left: 1px;
+    border: 1px solid #E1E1E1;
 }
 form.register input.short{
     width: 40px;
