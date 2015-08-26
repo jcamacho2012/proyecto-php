@@ -21,9 +21,11 @@ ini_set('error_reporting', E_ALL);
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>           
         <script type="text/javascript" src="js/jquery-ui.js"></script>
         <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="js/autocomplete.js"></script>
       
     </head>
     <body>
-        
+         <input type="text" id="country_id" onkeyup="autocomplet()">
+          <ul id="country_list_id"></ul>         
     </body>
 </html>
