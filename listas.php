@@ -8,6 +8,7 @@
 $cadena = "host='192.168.169.90' port='5432' dbname='inpdev_rrhh' user='postgres' password='1npb0n1t4'";
 $con = pg_connect($cadena) or die("Error conexion" . pg_last_error());
 
+
 function lista_provincia() {
     $sql = "select * from ecuador_provincias order by nombre";
     $result = pg_query($sql) or die("Error sql" . pg_last_error());

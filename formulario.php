@@ -36,39 +36,39 @@ ini_set('error_reporting', E_ALL);
             });
         </script>
         <script>
-            $(document).ready(function(){
-               $('#provincia').change(function(){
-                   var code=$(this).val();
-                   var data='provincia='+code;
-                   
-                   $.ajax({
-                       type:"POST",
-                       url:"fill.php",
-                       data:data,
-                       cache:false,
-                       success:function(html){
-                           $('#ciudad').html(html);
-                       }
-                   });                   
-               });
-               
-               $('#ciudad').change(function(){
-                   var code=$(this).val();
-                   var data='ciudad='+code;
-                   
-                   $.ajax({
-                       type:"POST",
-                       url:"fill.php",
-                       data:data,
-                       cache:false,
-                       success:function(html){
-                           $('#parroquia').html(html);
-                       }
-                   });
-               });
+            $(document).ready(function () {
+                $('#provincia').change(function () {
+                    var code = $(this).val();
+                    var data = 'provincia=' + code;
+
+                    $.ajax({
+                        type: "POST",
+                        url: "fill.php",
+                        data: data,
+                        cache: false,
+                        success: function (html) {
+                            $('#ciudad').html(html);
+                        }
+                    });
+                });
+
+                $('#ciudad').change(function () {
+                    var code = $(this).val();
+                    var data = 'ciudad=' + code;
+
+                    $.ajax({
+                        type: "POST",
+                        url: "fill.php",
+                        data: data,
+                        cache: false,
+                        success: function (html) {
+                            $('#parroquia').html(html);
+                        }
+                    });
+                });
             });
         </script>
-        <script>
+        <script>            
             function abrir() {
                 window.open("/proyecto-git-php/proyecto-php/agregar_ruta.php", "", "width=500,height=300");
             }
@@ -136,7 +136,7 @@ ini_set('error_reporting', E_ALL);
                     </label>
                     <input type="text" class="long" value="Gestion de Procesos" readonly=""/>
                 </p>
-                
+
                 <p>
                     <label>Provincia *
                     </label>
@@ -155,7 +155,7 @@ ini_set('error_reporting', E_ALL);
                     <label>Parroquia *
                     </label>
                     <select name="parroquia" id="parroquia">  
-                         <option selected="selected">Seleccione Ciudad</option> 
+                        <option selected="selected">Seleccione Ciudad</option> 
                     </select>
                 </p>
                 <p>
@@ -252,16 +252,14 @@ ini_set('error_reporting', E_ALL);
                 <p>
                     <label>Coordinador 
                     </label>
-                    <select>   
-                        <?php echo lista_coordinador() ?>                  
-                    </select>                   
+                    <input type="text" id="coordinadorid" onkeyup="autocomplet()">
+                    <ul id="coordinador_list_id"></ul>                                  
                 </p> 
                 <p>
                     <label>Direccion 
                     </label>
-                    <select>
-                        <?php echo lista_direccion() ?>  
-                    </select>                   
+                   <input type="text" id="direccionid" onkeyup="autocomplet()">
+                    <ul id="direccion_list_id"></ul>                  
                 </p>    
             </fieldset>
             <br />
