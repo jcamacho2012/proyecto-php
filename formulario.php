@@ -296,7 +296,7 @@ ini_set('error_reporting', E_ALL);
                 <p>
                     <label>Direccion 
                     </label>
-                   <input type="text" id="direccionid">              
+                   <input type="text" id="direccionid" >              
                 </p>    
             </fieldset>
             <br />
