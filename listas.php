@@ -8,6 +8,17 @@
 $cadena = "host='192.168.169.90' port='5432' dbname='inpdev_rrhh' user='postgres' password='1npb0n1t4'";
 $con = pg_connect($cadena) or die("Error conexion" . pg_last_error());
 
+function lista_usuarios($valor){
+    $valor=strtoupper($valor);
+    $sql = "select oid,apellidos_nombres from distributivo where apellidos_nombres like '%" . $valor . "%'  order by oid";
+    $result = pg_query($sql) or die("Error sql" . pg_last_error());
+    $datos=array();
+    while ($row = pg_fetch_array($result, NULL, PGSQL_ASSOC)) {
+         $tmp=array('label'=>$row['apellidos_nombres']);
+        $datos[]=$tmp;        
+    }
+   echo json_encode($datos);
+}
 
 function lista_provincia() {
     $sql = "select * from ecuador_provincias order by nombre";

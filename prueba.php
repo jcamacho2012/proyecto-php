@@ -21,11 +21,30 @@ ini_set('error_reporting', E_ALL);
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>           
         <script type="text/javascript" src="js/jquery-ui.js"></script>
         <script type="text/javascript" src="js/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="js/autocomplete.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#busca').autocomplete({
+                    source: function(request,response){
+                        $.ajax({
+                           url:"fill.php",
+                           dataType:"json",
+                           data:{q:request.term},
+                           success: function(data){
+                               response(data);
+                           }
+                        });
+                    },
+                    minLength:1,
+                    select:function(event,ui){
+                        alert("Selecciono:"+ui.item.label);
+                    }
+                });
+            });
+        </script>
       
     </head>
     <body>
-         <input type="text" id="country_id" onkeyup="autocomplet()">
-          <ul id="country_list_id"></ul>         
+        <label for="apellidos">Apellidos</label> 
+        <input type="text" id="busca">          
     </body>
 </html>

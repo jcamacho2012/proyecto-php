@@ -26,8 +26,11 @@ ini_set('error_reporting', E_ALL);
     <head>
 
         <link rel="stylesheet" type="text/css" href="estilo.css" media="screen" />
+        <link type="text/css" rel="stylesheet" href="css/jquery-ui.css"/>
         <link rel="stylesheet" type="text/css" href="css/default.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+          <script type="text/javascript" src="js/jquery-ui.js"></script>
+        <script type="text/javascript" src="js/jquery-ui.min.js"></script>
         <script>
             $(document).ready(function () {
                 setInterval(function () {
@@ -66,6 +69,42 @@ ini_set('error_reporting', E_ALL);
                         }
                     });
                 });
+                
+                   $('#coordinadorid').autocomplete({
+                    source: function(request,response){
+                        $.ajax({
+                           url:"fill.php",
+                           type:"POST",
+                           dataType:"json",
+                           data:{q:request.term},
+                           success: function(data){
+                               response(data);
+                           }
+                        });
+                    },
+                    minLength:1,
+                    select:function(event,ui){
+                        alert("Selecciono:"+ui.item.label);
+                    }
+                }); 
+                
+                 $('#direccionid').autocomplete({
+                    source: function(request,response){
+                        $.ajax({
+                           url:"fill.php",
+                           type:"POST",
+                           dataType:"json",
+                           data:{q:request.term},
+                           success: function(data){
+                               response(data);
+                           }
+                        });
+                    },
+                    minLength:1,
+                    select:function(event,ui){
+                        alert("Selecciono:"+ui.item.label);
+                    }
+                });        
             });
         </script>
         <script>            
@@ -247,19 +286,17 @@ ini_set('error_reporting', E_ALL);
             <br />
             <fieldset class="row6">
                 <br />
-                <legend> Firmas para Autorización
+                <legend> Firmas para Autorizacion
                 </legend>
                 <p>
                     <label>Coordinador 
                     </label>
-                    <input type="text" id="coordinadorid" onkeyup="autocomplet()">
-                    <ul id="coordinador_list_id"></ul>                                  
+                    <input type="text" id="coordinadorid">                                      
                 </p> 
                 <p>
                     <label>Direccion 
                     </label>
-                   <input type="text" id="direccionid" onkeyup="autocomplet()">
-                    <ul id="direccion_list_id"></ul>                  
+                   <input type="text" id="direccionid">              
                 </p>    
             </fieldset>
             <br />
