@@ -34,7 +34,7 @@ ini_set('error_reporting', E_ALL);
         <script>
             $(document).ready(function () {
                 setInterval(function () {
-                    $("#tableID").load('tabla_ruta.php');
+                    $("#tableID").load('utilitarios/tabla_ruta.php');
                 }, 1000);
             });
         </script>

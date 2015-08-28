@@ -63,30 +63,77 @@ function guardar_ruta($salida, $llegada) {
 }
 
 function editar_registro($id) {
-    $sql = "SELECT * FROM ruta WHERE id=" . $id . ";";
-    $res = pg_query($sql) or die("Error sql" . pg_last_error());
-    $row = pg_fetch_array($res, NULL, PGSQL_ASSOC);
+//    $sql = "SELECT * FROM ruta WHERE id=" . $id . ";";
+//    $res = pg_query($sql) or die("Error sql" . pg_last_error());
+//    $row = pg_fetch_array($res, NULL, PGSQL_ASSOC);
+    $prueba="01";
+    $retval = '<form method="POST" action="" class="register">
+            <h1>Editar Ruta</h1>            
+            <fieldset class="row2">
+                <legend>Datos
+                </legend>
+                <p>
+                    <label>Tipo de Transporte
+                    </label>
+                    <select name="tipo" id="tipo">
+                        <?php echo lista_tipo_transporte() ?>
+                    </select>
+                </p>
+                <p>
+                    <label>Nombre de Transporte
+                    </label>
+                    <input type="text" class="long" value='.$prueba.'>
+                </p>
+            </fieldset> 
+            <fieldset></fieldset>
 
-    $retval = '
-	<form name="contacto" action="" method="POST">
-	<input type="hidden" name="id" value="' . $row['id'] . '"/>
-	<table align="center" border=0>
-			<tr>
-				<td colspan="2" align="center"><b>Datos de Ruta</b></td>
-			</tr>
-			<tr>
-				<td><b>Salida: </b></td>
-				<td><input type="text"  name="salida" value="' . $row['salida'] . '"></td>
-			</tr>
-			<tr>
-				<td><b>Llegada: </b></td>
-				<td><input type="text"  name="llegada" size="2" value="' . $row['llegada'] . '"></td>
-			</tr>			
-			<tr>
-				<td colspan=2 align="center"><input type="submit" name="envia" value="Guardar" onclick="cerrar()"></td>                                
-			</tr>								
-		</table>
-		</form>';
+            <fieldset class="row4">               
+                <legend> Salida
+                </legend>                                
+                <p>
+                    <label>Ciudad *
+                    </label>
+                    <select name="provincia" id="provincia">
+//                        
+                    </select>                   
+                </p>
+                <p>
+                    <label>Fecha de Salida
+                    </label>
+                    <input style="border: 1px solid #E1E1E1;" type="date" name="bday"/>
+                </p>
+                <p>
+                    <label> Hora Salida
+                    </label>
+                    <input style="border: 1px solid #E1E1E1;" type="time" name="bday"/>
+                </p>
+            </fieldset>
+            <fieldset class="row5">
+                <legend> Llegada
+                </legend>                                
+                <p>
+                    <label>Ciudad *
+                    </label>
+                    <select name="provincia" id="provincia">
+                        
+                    </select>                   
+                </p>
+                <p>
+                    <label>Fecha de Salida
+                    </label>
+                    <input style="border: 1px solid #E1E1E1;" type="date" name="bday"/>
+                </p>
+                <p>
+                    <label> Hora Salida
+                    </label>
+                    <input style="border: 1px solid #E1E1E1;" type="time" name="bday"/>
+                </p>  
+            </fieldset>
+            <br />          
+            <br />
+            <div> <input type="submit" class="button" name="Submit" value="Guardar" onclick="cerrar()"/></div>
+        </form>
+	';
     return $retval;
 }
 

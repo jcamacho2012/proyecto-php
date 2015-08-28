@@ -38,7 +38,7 @@ if (isset($_POST['Submit'])) {
 <!DOCTYPE html>
 <html>
     <head>
-
+        <title>Agregar Ruta</title>
         <link rel="stylesheet" type="text/css" href="estilo.css" media="screen" />
         <link type="text/css" rel="stylesheet" href="css/jquery-ui.css"/>
         <!--        <link rel="stylesheet" type="text/css" href="css/default.css"/>-->
