@@ -1,5 +1,5 @@
 <?php
-include 'listas.php';
+include 'utilitarios/listas.php';
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 // Motrar todos los errores de PHP
@@ -13,6 +13,24 @@ error_reporting(E_ALL);
 
 // Motrar todos los errores de PHP
 ini_set('error_reporting', E_ALL);
+session_start();
+if (isset($_POST['username'])) {
+    $dbname = "jose";
+    $dbpassword = "jose";
+    $uid = "1";
+
+    $usname = ($_POST["username"]);
+    $paswd = ($_POST["password"]);
+    
+
+    if ($usname == $dbname && $paswd == $dbpassword) {
+        $_SESSION['username'] = $usname;
+        $_SESSION['id'] = $uid;
+        header("Location:llenar.php");
+    } else {
+        echo "<h1>Error</h1>";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,31 +38,13 @@ ini_set('error_reporting', E_ALL);
         <link type="text/css" rel="stylesheet" href="css/jquery-ui.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>           
         <script type="text/javascript" src="js/jquery-ui.js"></script>
-        <script type="text/javascript" src="js/jquery-ui.min.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function(){
-                $('#busca').autocomplete({
-                    source: function(request,response){
-                        $.ajax({
-                           url:"fill.php",
-                           dataType:"json",
-                           data:{q:request.term},
-                           success: function(data){
-                               response(data);
-                           }
-                        });
-                    },
-                    minLength:1,
-                    select:function(event,ui){
-                        alert("Selecciono:"+ui.item.label);
-                    }
-                });
-            });
-        </script>
-      
+        <script type="text/javascript" src="js/jquery-ui.min.js"></script>             
     </head>
     <body>
-        <label for="apellidos">Apellidos</label> 
-        <input type="text" id="busca">          
+        <form id="form" action="prueba.php" method="POST" enctype="multipart/form-data">
+            Username:<input type="text" name="username"/><br /><br />
+            Password:<input type="password" name="password"/><br />
+            <input type="submit" value="Login" name="login"/>
+        </form>         
     </body>
 </html>

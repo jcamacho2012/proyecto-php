@@ -1,27 +1,37 @@
 <?php
-include 'listas.php';
-$cadena = "host='192.168.169.90' port='5432' dbname='inpdev_rrhh' user='postgres' password='1npb0n1t4'";
-$con = pg_connect($cadena) or die("Error conexion" . pg_last_error());
-$valor=$_GET['q'];
- $sql = "select oid from distributivo where apellidos_nombres like '%" . $valor . "%'  order by oid";
-    $result = pg_query($sql) or die("Error sql" . pg_last_error());
-    $datos=array();
-    while ($row = pg_fetch_array($result, NULL, PGSQL_ASSOC)) {
-        $tmp=array('label'=>$row['oid']);
-        $datos[]=$tmp; 
-    }
-   echo json_encode($datos);
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-//$ak = array('label' => 'Alaska');
-//$al = array('label' => 'Alabama');
-//$ar = array('label' => 'Arkansas');
-//
-//$arr[0] = $ak;
-//$arr[1] = $al;
-//$arr[2] = $ar;
-// 
-//echo json_encode($arr);
+include 'utilitarios/listas.php';
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+// Motrar todos los errores de PHP
+error_reporting(-1);
+
+// No mostrar los errores de PHP
+error_reporting(0);
+
+// Motrar todos los errores de PHP
+error_reporting(E_ALL);
+
+// Motrar todos los errores de PHP
+ini_set('error_reporting', E_ALL);
+session_start();
+if(isset($_SESSION['id'])){
+    $uid=$_SESSION['id'];
+    $usname=$_SESSION['username'];
+    $result="Test variable: Username".$usname." ID:".$uid;
+}else{
+    $result="No has iniciado sesion";
+}
+?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><?php echo $usname; ?> - Logeado</title>
+        <link type="text/css" rel="stylesheet" href="css/jquery-ui.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>           
+        <script type="text/javascript" src="js/jquery-ui.js"></script>
+        <script type="text/javascript" src="js/jquery-ui.min.js"></script>             
+    </head>
+    <body>
+           <?php echo $result;?>   
+    </body>
+</html>
