@@ -1,6 +1,6 @@
 <?php
-require ("class.php");
-require ("listas.php");
+require ("utilitarios/class.php");
+require ("utilitarios/listas.php");
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
@@ -100,7 +100,7 @@ if (isset($_POST['Submit'])) {
                     <label>Tipo de Transporte
                     </label>
                     <select name="tipo" id="tipo">
-<?php echo lista_tipo_transporte() ?>
+                        <?php echo lista_tipo_transporte() ?>
                     </select>
                 </p>
                 <p>
@@ -118,7 +118,7 @@ if (isset($_POST['Submit'])) {
                     <label>Ciudad *
                     </label>
                     <select name="provincia" id="provincia">
-<?php echo lista_ciudad('') ?>
+                        <?php echo lista_ciudad('') ?>
                     </select>                   
                 </p>
                 <p>
@@ -139,7 +139,7 @@ if (isset($_POST['Submit'])) {
                     <label>Ciudad *
                     </label>
                     <select name="provincia" id="provincia">
-<?php echo lista_ciudad('') ?>
+                        <?php echo lista_ciudad('') ?>
                     </select>                   
                 </p>
                 <p>

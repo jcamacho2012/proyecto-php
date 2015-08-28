@@ -1,6 +1,6 @@
 <?php
 
-include 'listas.php';
+require ("listas.php");
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -12,9 +12,9 @@ if (isset($_POST['provincia'])) {
     echo lista_ciudad($_POST['provincia']);
 } else if (isset($_POST['ciudad'])) {
     echo lista_parroquia($_POST['ciudad']);
-} else if(isset($_POST['q'])){
+} else if (isset($_POST['q'])) {
     lista_usuarios($_POST['q']);
-}else{
+} else {
     echo'<option>no hay code</option>';
 }
 

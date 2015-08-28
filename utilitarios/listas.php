@@ -38,8 +38,8 @@ function lista_ciudad($id) {
             $lista .= '<option value="' . $row['oid'] . '">' . $row['nombre'] . '		
             </option>';
         }
-    }else{
-         $sql = "select * from ecuador_cantones order by nombre";
+    } else {
+        $sql = "select * from ecuador_cantones order by nombre";
         $result = pg_query($sql) or die("Error sql" . pg_last_error());
         while ($row = pg_fetch_array($result, NULL, PGSQL_ASSOC)) {
             $lista .= '<option value="' . $row['oid'] . '">' . $row['nombre'] . '		

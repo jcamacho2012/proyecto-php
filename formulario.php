@@ -1,6 +1,6 @@
 <?php
-require ("class.php");
-require ("listas.php");
+require ("utilitarios/class.php");
+require ("utilitarios/listas.php");
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
@@ -25,11 +25,11 @@ ini_set('error_reporting', E_ALL);
 <html>
     <head>
 
-        <link rel="stylesheet" type="text/css" href="estilo.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="css/estilo.css" media="screen" />
         <link type="text/css" rel="stylesheet" href="css/jquery-ui.css"/>
         <link rel="stylesheet" type="text/css" href="css/default.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-          <script type="text/javascript" src="js/jquery-ui.js"></script>
+        <script type="text/javascript" src="js/jquery-ui.js"></script>
         <script type="text/javascript" src="js/jquery-ui.min.js"></script>
         <script>
             $(document).ready(function () {
@@ -46,7 +46,7 @@ ini_set('error_reporting', E_ALL);
 
                     $.ajax({
                         type: "POST",
-                        url: "fill.php",
+                        url: "utilitarios/fill.php",
                         data: data,
                         cache: false,
                         success: function (html) {
@@ -61,7 +61,7 @@ ini_set('error_reporting', E_ALL);
 
                     $.ajax({
                         type: "POST",
-                        url: "fill.php",
+                        url: "utilitarios/fill.php",
                         data: data,
                         cache: false,
                         success: function (html) {
@@ -69,45 +69,45 @@ ini_set('error_reporting', E_ALL);
                         }
                     });
                 });
-                
-                   $('#coordinadorid').autocomplete({
-                    source: function(request,response){
+
+                $('#coordinadorid').autocomplete({
+                    source: function (request, response) {
                         $.ajax({
-                           url:"fill.php",
-                           type:"POST",
-                           dataType:"json",
-                           data:{q:request.term},
-                           success: function(data){
-                               response(data);
-                           }
+                            url: "utilitarios/fill.php",
+                            type: "POST",
+                            dataType: "json",
+                            data: {q: request.term},
+                            success: function (data) {
+                                response(data);
+                            }
                         });
                     },
-                    minLength:1,
-                    select:function(event,ui){
-                        alert("Selecciono:"+ui.item.label);
+                    minLength: 1,
+                    select: function (event, ui) {
+                        alert("Selecciono:" + ui.item.label);
                     }
-                }); 
-                
-                 $('#direccionid').autocomplete({
-                    source: function(request,response){
+                });
+
+                $('#direccionid').autocomplete({
+                    source: function (request, response) {
                         $.ajax({
-                           url:"fill.php",
-                           type:"POST",
-                           dataType:"json",
-                           data:{q:request.term},
-                           success: function(data){
-                               response(data);
-                           }
+                            url: "utilitarios/fill.php",
+                            type: "POST",
+                            dataType: "json",
+                            data: {q: request.term},
+                            success: function (data) {
+                                response(data);
+                            }
                         });
                     },
-                    minLength:1,
-                    select:function(event,ui){
-                        alert("Selecciono:"+ui.item.label);
+                    minLength: 1,
+                    select: function (event, ui) {
+                        alert("Selecciono:" + ui.item.label);
                     }
-                });        
+                });
             });
         </script>
-        <script>            
+        <script>
             function abrir() {
                 window.open("/proyecto-git-php/proyecto-php/agregar_ruta.php", "", "width=500,height=300");
             }
@@ -119,7 +119,6 @@ ini_set('error_reporting', E_ALL);
             function eliminar(id) {
                 window.open("/proyecto-git-php/proyecto-php/eliminar_ruta.php?id=" + id, "", "width=500,height=300");
             }
-
             function cargar() {
                 var table = document.getElementById("viajes");
                 table.refresh();
@@ -258,7 +257,7 @@ ini_set('error_reporting', E_ALL);
                 </p>   
                 <p class="agreement">
                 <div id="tableID">
-                    <?php include_once'tabla_ruta.php'; ?>  
+                    <?php include_once 'utilitarios/tabla_ruta.php'; ?>  
                 </div>     
                 </p>                       
             </fieldset>
@@ -296,7 +295,7 @@ ini_set('error_reporting', E_ALL);
                 <p>
                     <label>Direccion 
                     </label>
-                   <input type="text" id="direccionid" >              
+                    <input type="text" id="direccionid" >              
                 </p>    
             </fieldset>
             <br />
