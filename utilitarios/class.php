@@ -13,13 +13,29 @@
 $cadena = "host='192.168.169.90' port='5432' dbname='postgres' user='postgres' password='1npb0n1t4'";
 $con = pg_connect($cadena) or die("Error conexion" . pg_last_error());
 
-function login($id, $provincia) {
-    if ($id != NULL && $provincia != NULL) {
-        $cadena = "host='192.168.169.90' port='5432' dbname='postgres' user='postgres' password='1npb0n1t4'";
+function login($username, $password) {
+    if ($username != NULL && $password != NULL) {
+        $cadena = "host='192.168.169.90' port='5432' dbname='solicitudes' user='postgres' password='1npb0n1t4'";
         $con = pg_connect($cadena) or die("Error conexion" . pg_last_error());
-        $sql = "select * from ruta where oid=" . $id . ";";
+        $sql = "select oid from \"user\" where username='" . $username . "' and password='".$password."';";
         $result = pg_query($sql) or die("Error sql" . pg_last_error());
-        $cont = pg_num_rows($result);
+        while ($row = pg_fetch_array($result, NULL, PGSQL_ASSOC)){
+            $cont=$row['oid'];
+        }
+        pg_close($con);
+        return $cont;
+    }
+}
+
+function datos_usuario($oid) {
+    if ($oid != NULL) {
+        $cadena = "host='192.168.169.90' port='5432' dbname='solicitudes' user='postgres' password='1npb0n1t4'";
+        $con = pg_connect($cadena) or die("Error conexion" . pg_last_error());
+        $sql = "select apellidos_nombres from distributivo where oid='" . $oid . "';";
+        $result = pg_query($sql) or die("Error sql" . pg_last_error());
+        while ($row = pg_fetch_array($result, NULL, PGSQL_ASSOC)){
+            $cont=$row['apellidos_nombres'];
+        }
         pg_close($con);
         return $cont;
     }

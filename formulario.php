@@ -20,6 +20,14 @@ ini_set('error_reporting', E_ALL);
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+session_start();
+if (isset($_SESSION['nombre'])) {
+    $nombre = $_SESSION['nombre'];
+} else {
+    header("Location: /proyecto-git-php/proyecto-php/index.php");
+    $nombre = "No has iniciado sesion";
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -127,12 +135,19 @@ ini_set('error_reporting', E_ALL);
             function fecha() {
                 document.getElementById('datePicker').value = new Date().toDateInputValue();
             }
+
+            function cerrar_sesion() {
+                eliminar = confirm("¿Deseas cerrar tu sesion?");
+                if (eliminar)
+                    window.location.href = "/proyecto-git-php/proyecto-php/salir.php"; //página web a la que te redirecciona si confirmas la eliminación               
+            }
         </script>
     </head>
     <body>
         <nav>
-            <?php echo menu(); ?>	
-        </nav> 
+            <?php echo menu(); ?>            
+        </nav>
+        <p id="sesion"><?php echo $nombre; ?> - <a href="javascript:cerrar_sesion()">Cerrar Sesion</a></p>
         <form method="POST" action="" class="register">
             <h1>Solicitud de Autorizacion para Cumplimiento de Servicios Institucionales</h1>
             <fieldset class="row1">

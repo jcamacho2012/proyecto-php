@@ -32,7 +32,8 @@ nav{
         li a{
             padding: 10px; /* El padding añadirá separación entre los elementos */
         }
-        
+      
+  
 /*nav{
     Bordes redondeados
     -webkit-border-radius:10px;Para chrome y Safari

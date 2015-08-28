@@ -5,8 +5,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-$cadena = "host='192.168.169.90' port='5432' dbname='inpdev_rrhh' user='postgres' password='1npb0n1t4'";
+$cadena = "host='192.168.169.90' port='5432' dbname='solicitudes' user='postgres' password='1npb0n1t4'";
 $con = pg_connect($cadena) or die("Error conexion" . pg_last_error());
+
 
 function lista_usuarios($valor) {
     $valor = strtoupper($valor);
