@@ -24,6 +24,8 @@ ini_set('error_reporting', E_ALL);
 session_start();
 if (isset($_SESSION['nombre'])) {
     $nombre = $_SESSION['nombre'];
+    $oid = $_SESSION['id'];
+    list($cedula, $nombre,$unidad,$puesto) = datos_usuario($oid);
 } else {
     header("Location: /proyecto-git-php/proyecto-php/index.php");
     $nombre = "No has iniciado sesion";
@@ -48,6 +50,8 @@ if (isset($_SESSION['nombre'])) {
         </script>
         <script>
             $(document).ready(function () {
+                
+                
                 $('#provincia').change(function () {
                     var code = $(this).val();
                     var data = 'provincia=' + code;
@@ -91,9 +95,9 @@ if (isset($_SESSION['nombre'])) {
                         });
                     },
                     minLength: 1,
-                    select: function (event, ui) {
-                        alert("Selecciono:" + ui.item.label);
-                    }
+//                    select: function (event, ui) {
+//                        alert("Selecciono:" + ui.item.label);
+//                    }
                 });
 
                 $('#direccionid').autocomplete({
@@ -109,9 +113,9 @@ if (isset($_SESSION['nombre'])) {
                         });
                     },
                     minLength: 1,
-                    select: function (event, ui) {
-                        alert("Selecciono:" + ui.item.label);
-                    }
+//                    select: function (event, ui) {
+//                        alert("Selecciono:" + ui.item.label);
+//                    }
                 });
             });
         </script>
@@ -148,7 +152,7 @@ if (isset($_SESSION['nombre'])) {
             <?php echo menu(); ?>            
         </nav>
         <p id="sesion"><?php echo $nombre; ?> - <a href="javascript:cerrar_sesion()">Cerrar Sesion</a></p>
-        <form method="POST" action="" class="register">
+        <form method="POST" action="login.php" class="register">
             <h1>Solicitud de Autorizacion para Cumplimiento de Servicios Institucionales</h1>
             <fieldset class="row1">
                 <legend>
@@ -156,24 +160,13 @@ if (isset($_SESSION['nombre'])) {
                 <p>
                     <label>Nº solicitud de autorizacion
                     </label>
-                    <input type="text"/>   
+                    <input type="text" name="autorizacion"/>   
                     <label>Fecha de solicitud
                     </label>
                     <input  style="border: 1px solid #E1E1E1;" type="date" name="fecha_solicitud" value="<?php echo date('Y-m-d'); ?>" readonly=""/>
                 </p>                
                 <p>
-                    <label>Viaticos 
-                    </label>
-                    <input type="checkbox" value="" />
-                    <label>Movilizaciones 
-                    </label>
-                    <input type="checkbox" value="" />
-                    <label>Subsistencias 
-                    </label>
-                    <input type="checkbox" value="" />
-                    <label>Alimentacion 
-                    </label>
-                    <input type="checkbox" value="" />
+                    <?php echo lista_tipo_viatico() ?>
                 </p>
             </fieldset>
             <fieldset class="row2">
@@ -182,12 +175,12 @@ if (isset($_SESSION['nombre'])) {
                 <p>
                     <label>Nombre Completo
                     </label>
-                    <input type="text" class="long" value="NN NN"  readonly=""/>
+                    <input type="text" class="long" value="<?php echo $nombre ?>"  readonly=""/>
                 </p>
                 <p>
                     <label>Unidad a que pertenece
                     </label>
-                    <input type="text" class="long" value="Gestion de Procesos" readonly=""/>
+                    <input type="text" class="long" value="<?php echo $unidad ?>" readonly=""/>
                 </p>
 
                 <p>
@@ -214,22 +207,22 @@ if (isset($_SESSION['nombre'])) {
                 <p>
                     <label>Fecha de Salida
                     </label>
-                    <input style="border: 1px solid #E1E1E1;" type="date" name="bday"/>
+                    <input style="border: 1px solid #E1E1E1;" type="date" name="salida_fecha"/>
                 </p>
                 <p>
                     <label> Hora Salida
                     </label>
-                    <input style="border: 1px solid #E1E1E1;" type="time" name="bday"/>
+                    <input style="border: 1px solid #E1E1E1;" type="time" name="salida_hora"/>
                 </p>
                 <p>
                     <label>Fecha de Llegada
                     </label>
-                    <input style="border: 1px solid #E1E1E1;" type="date" name="bday"/>
+                    <input style="border: 1px solid #E1E1E1;" type="date" name="llegada_fecha"/>
                 </p>
                 <p>
                     <label> Hora Llegada
                     </label>
-                    <input style="border: 1px solid #E1E1E1;" type="time" name="bday"/>
+                    <input style="border: 1px solid #E1E1E1;" type="time" name="llegada_hora"/>
                 </p>
 
             </fieldset>
@@ -240,24 +233,24 @@ if (isset($_SESSION['nombre'])) {
                 <p>
                     <label>Cedula
                     </label>
-                    <input type="text" maxlength="10" value="0927619858" readonly=""/>
+                    <input type="text" maxlength="10" value="<?php echo $cedula ?>" readonly=""/>
                 </p>
                 <p>
                     <label>Puesto
                     </label>
-                    <input type="text" class="long" value="Servidor Publico 3" readonly=""/>
+                    <input type="text" class="long" value="<?php echo $puesto ?>" readonly=""/>
                 </p>
                 <p>
                     <label>Integrantes
                     </label>
-                    <textarea  placeholder="text" class="textarea" style="resize:none; border: 1px solid #E1E1E1;" rows="4" cols="50" >
+                    <textarea  name="integrantes" placeholder="text" class="textarea" style="resize:none; border: 1px solid #E1E1E1;" rows="4" cols="50" >
                        
                     </textarea>
                 </p>
                 <p>
                     <label>Descripcion
                     </label>
-                    <textarea class="textarea" style="resize:none; border: 1px solid #E1E1E1;" rows="4" cols="50">
+                    <textarea name="descripcion" class="textarea" style="resize:none; border: 1px solid #E1E1E1;" rows="4" cols="50">
                        
                     </textarea>
                 </p>  
@@ -283,18 +276,18 @@ if (isset($_SESSION['nombre'])) {
                 <p>
                     <label>Nombre del Banco
                     </label>
-                    <input type="text" class="long" value="Banco del Pichincha"/>
+                    <input type="text" class="long" name="nombre_banco" value="Banco del Pichincha"/>
                 </p>
 
                 <p>
                     <label>Tipo de cuenta
                     </label>
-                    <input type="text" class="long" value="Ahorro" />
+                    <input type="text" class="long" name="tipo_cuenta" value="Ahorro" />
                 </p>  
                 <p>
                     <label>Numero de cuenta
                     </label>
-                    <input type="text" class="long" value="562145265" />
+                    <input type="text" class="long" name="numero_cuenta" value="562145265" />
                 </p>           
             </fieldset>
             <br />
@@ -305,17 +298,22 @@ if (isset($_SESSION['nombre'])) {
                 <p>
                     <label>Coordinador 
                     </label>
-                    <input type="text" id="coordinadorid">                                      
+                    <input type="text" id="coordinadorid" name="unidad">   
+                    <label>Encargado(a)? 
+                    </label>
+                    <input type="checkbox" value="true" name="unidad_chk"/>
                 </p> 
                 <p>
                     <label>Direccion 
                     </label>
-                    <input type="text" id="direccionid" >              
+                    <input type="text" id="direccionid" name="autoridad" > 
+                    <label>Encargado(a)? 
+                    </label>
+                    <input type="checkbox" value="true" name="autoridad_chk"/>
                 </p>    
             </fieldset>
             <br />
-            <div><button class="button">Crear solicitud &raquo;</button></div>
-        </form>
-
+            <div><button class="button" type="submit">Crear solicitud &raquo;</button></div>
+        </form>        
     </body>
 </html>

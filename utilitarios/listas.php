@@ -8,6 +8,30 @@
 $cadena = "host='192.168.169.90' port='5432' dbname='solicitudes' user='postgres' password='1npb0n1t4'";
 $con = pg_connect($cadena) or die("Error conexion" . pg_last_error());
 
+function crear_solicitud($numero, $fecha,$provincia,$ciudad,$salida_fecha,$salida_hora,$llegada_fecha,$llegada_hora,$integrantes,$descripcion,$nombre_banco,$tipo_cuenta,$numero_cuenta,$unidad,$unidad_chk,$autoridad,$autoridad_chk) {
+    if($unidad_chk!="true"){
+        $unidad_chk="false";
+    }
+     if($autoridad_chk!="true"){
+        $autoridad_chk="false";
+    }
+    $cadena = "host='192.168.169.90' port='5432' dbname='solicitudes' user='postgres' password='1npb0n1t4'";
+    $con = pg_connect($cadena) or die("Error conexion" . pg_last_error());
+    $sql = "insert into solicitud(numero_autorizacion,fecha_solicitud,tipo_viatico,oid_distributivo,provincia_solicitud,ciudad_solicitud,salida_fecha,salida_hora,"
+            . "llegada_fecha,llegada_hora,integrantes,descripcion,oid_ruta,nombre_banco,tipo_cuenta,numero_cuenta,user_unidad,unidad_chk,user_autoridad,autoridad_chk)"
+            . "values('" . $numero . "','" . $fecha . "','1','214','".$provincia."','".$ciudad."','".$salida_fecha."','".$salida_hora."','".$llegada_fecha."','".$llegada_hora."'"
+            . ",'".$integrantes."','".$descripcion."','1','".$nombre_banco."','".$tipo_cuenta."','".$numero_cuenta."',"
+            . "'".$unidad."','".$unidad_chk."','".$autoridad."','".$autoridad_chk."');";
+    $result = pg_query($sql) or die("Error sql" . pg_last_error());
+    if (!$result) {
+        $valor = 0;
+        exit;
+    } else {
+        $valor = 1;
+    }
+    pg_close();
+    return $valor;
+}
 
 function lista_usuarios($valor) {
     $valor = strtoupper($valor);
@@ -19,6 +43,20 @@ function lista_usuarios($valor) {
         $datos[] = $tmp;
     }
     echo json_encode($datos);
+}
+
+function lista_tipo_viatico() {
+    $cadena = "host='192.168.169.90' port='5432' dbname='solicitudes' user='postgres' password='1npb0n1t4'";
+    $con = pg_connect($cadena) or die("Error conexion" . pg_last_error());
+    $lista = '<br />';
+    $sql = "select oid,nombre from viatico_tipo order by oid";
+    $result = pg_query($sql) or die("Error sql" . pg_last_error());
+    while ($row = pg_fetch_array($result, NULL, PGSQL_ASSOC)) {
+        $lista .= '<label>' . $row['nombre'] . ' 
+                   </label>
+                    <input type="checkbox" value="' . $row['oid'] . '" />';
+    }
+    return $lista;
 }
 
 function lista_provincia() {

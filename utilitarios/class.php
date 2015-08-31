@@ -17,10 +17,10 @@ function login($username, $password) {
     if ($username != NULL && $password != NULL) {
         $cadena = "host='192.168.169.90' port='5432' dbname='solicitudes' user='postgres' password='1npb0n1t4'";
         $con = pg_connect($cadena) or die("Error conexion" . pg_last_error());
-        $sql = "select oid from \"user\" where username='" . $username . "' and password='".$password."';";
+        $sql = "select oid from \"user\" where username='" . $username . "' and password='" . $password . "';";
         $result = pg_query($sql) or die("Error sql" . pg_last_error());
-        while ($row = pg_fetch_array($result, NULL, PGSQL_ASSOC)){
-            $cont=$row['oid'];
+        while ($row = pg_fetch_array($result, NULL, PGSQL_ASSOC)) {
+            $cont = $row['oid'];
         }
         pg_close($con);
         return $cont;
@@ -28,16 +28,24 @@ function login($username, $password) {
 }
 
 function datos_usuario($oid) {
+    $cedula = "";
+    $nombre = "";
+    $unidad = "";
+    $puesto = "";
     if ($oid != NULL) {
         $cadena = "host='192.168.169.90' port='5432' dbname='solicitudes' user='postgres' password='1npb0n1t4'";
         $con = pg_connect($cadena) or die("Error conexion" . pg_last_error());
-        $sql = "select apellidos_nombres from distributivo where oid='" . $oid . "';";
+        //$sql = "select cedula,apellidos_nombres ,estado_puesto rom distributivo where oid='" . $oid . "';";
+        $sql = "select cedula as cedula,apellidos_nombres as nombre,a.nombre as unidad,c.nombre as puesto from distributivo d ,area a,cargo c where d.oid='" . $oid . "' and d.area_oid=a.oid and d.cargo_oid=c.oid";
         $result = pg_query($sql) or die("Error sql" . pg_last_error());
-        while ($row = pg_fetch_array($result, NULL, PGSQL_ASSOC)){
-            $cont=$row['apellidos_nombres'];
+        while ($row = pg_fetch_array($result, NULL, PGSQL_ASSOC)) {
+            $cedula = $row['cedula'];
+            $nombre = $row['nombre'];
+            $unidad = $row['unidad'];
+            $puesto = $row['puesto'];
         }
         pg_close($con);
-        return $cont;
+        return array($cedula, $nombre, $unidad, $puesto);
     }
 }
 
@@ -82,7 +90,7 @@ function editar_registro($id) {
 //    $sql = "SELECT * FROM ruta WHERE id=" . $id . ";";
 //    $res = pg_query($sql) or die("Error sql" . pg_last_error());
 //    $row = pg_fetch_array($res, NULL, PGSQL_ASSOC);
-    $prueba="01";
+    $prueba = "01";
     $retval = '<form method="POST" action="" class="register">
             <h1>Editar Ruta</h1>            
             <fieldset class="row2">
@@ -98,7 +106,7 @@ function editar_registro($id) {
                 <p>
                     <label>Nombre de Transporte
                     </label>
-                    <input type="text" class="long" value='.$prueba.'>
+                    <input type="text" class="long" value=' . $prueba . '>
                 </p>
             </fieldset> 
             <fieldset></fieldset>
