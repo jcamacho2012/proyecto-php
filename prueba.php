@@ -1,5 +1,6 @@
 <?php
 include 'utilitarios/listas.php';
+include 'utilitarios/class.php';
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 // Motrar todos los errores de PHP
@@ -41,10 +42,18 @@ session_start();
         <script type="text/javascript" src="js/jquery-ui.min.js"></script>             
     </head>
     <body>
-        <form id="form" action="prueba.php" method="POST" enctype="multipart/form-data">
+        <form id="form" action="login.php" method="POST" enctype="multipart/form-data">
             Username:<input type="text" name="username"/><br /><br />
             Password:<input type="password" name="password"/><br />
             <input type="submit" value="Login" name="login"/>
+            <label>Tipo de Transporte
+            </label>
+            <select name="tipo" id="tipo">
+                <?php echo lista_tipo_transporte('2') ?>
+            </select>
+            <?php echo "<script>alert('Registro exitoso!!'); 
+                </script>";?>
+
         </form>  
         <?php
 
@@ -55,11 +64,14 @@ session_start();
             return array($aVariable, $aVariable2);
         }
 
+        
         list($var1, $var2) = someFunc();
 
 //will print out values from someFunc
-        echo $var1+"<br />";
+
+        echo $var1 + "<br />";
         echo $var2;
+        // echo lista_ciudad('','GUAYAQUIL');
         ?>
     </body>
 </html>

@@ -49,141 +49,148 @@ function datos_usuario($oid) {
     }
 }
 
-function actualizar_ruta($id, $salida, $llegada) {
-    if ($salida != NULL && $llegada != NULL && $id != NULL) {
-        $sql = "UPDATE ruta SET salida='" . $salida . "', llegada='" . $llegada . "' WHERE id=" . $id . ";";
+function actualizar_ruta($id, $tipo, $nombre, $salida_ciudad, $salida_fecha, $salida_hora, $llegada_ciudad, $llegada_fecha, $llegada_hora) {
+    if ($id != NULL && $tipo != NULL && $nombre != NULL && $salida_ciudad != NULL && $salida_fecha != NULL && $salida_hora != NULL && $llegada_ciudad != NULL && $llegada_fecha != NULL && $llegada_hora != NULL) {
+        $cadena = "host='192.168.169.90' port='5432' dbname='solicitudes' user='postgres' password='1npb0n1t4'";
+        $con = pg_connect($cadena) or die("Error conexion" . pg_last_error());
+        $sql = "(select nombre from ecuador_cantones where oid=" . $salida_ciudad . ")";
         $result = pg_query($sql) or die("Error sql" . pg_last_error());
+        $row = pg_fetch_array($result, NULL, PGSQL_ASSOC);
+        $nombre_ciudad_salida = $row['nombre'];
+        $sql = "(select nombre from ecuador_cantones where oid=" . $llegada_ciudad . ")";
+        $result = pg_query($sql) or die("Error sql" . pg_last_error());
+        $row = pg_fetch_array($result, NULL, PGSQL_ASSOC);
+        $nombre_ciudad_llegada = $row['nombre'];
+        $sql = "UPDATE ruta
+   SET  tipo_transporte=" . $tipo . ", nombre_transporte='" . $nombre . "', salida_ciudad='" . $nombre_ciudad_salida . "', 
+       salida_fecha='" . $salida_fecha . "', salida_hora='" . $salida_hora . "', llegada_ciudad='" . $nombre_ciudad_llegada . "', llegada_fecha='" . $llegada_fecha . "', 
+       llegada_hora='" . $llegada_hora . "'
+        WHERE oid=" . $id . ";";
+         $result = pg_query($sql) or die("Error sql" . pg_last_error());
+       // echo $sql;
+        if (!$result) {
+            $valor = 0;
+            exit;
+        } else {
+            $valor = 1;
+        }
         var_dump($result);
         pg_close($con);
-        //return $cont;
     } else {
         echo"cadena vacia desde la funcion guardar_ruta";
     }
+    return $valor;
 }
 
 function eliminar_ruta($id) {
+    $cadena = "host='192.168.169.90' port='5432' dbname='solicitudes' user='postgres' password='1npb0n1t4'";
+    $con = pg_connect($cadena) or die("Error conexion" . pg_last_error());
     if ($id != NULL) {
-        $sql = "DELETE FROM ruta WHERE id=" . $id . ";";
+        $sql = "DELETE FROM ruta WHERE oid=" . $id . ";";
         $result = pg_query($sql) or die("Error sql" . pg_last_error());
         var_dump($result);
         pg_close($con);
-        //return $cont;
     } else {
         echo"cadena vacia desde la funcion eliminar_ruta";
     }
 }
 
-function guardar_ruta($salida, $llegada) {
-    if ($salida != NULL && $llegada != NULL) {
-        $sql = "INSERT INTO ruta(salida, llegada) VALUES ('" . $salida . "','" . $llegada . "');";
+function guardar_ruta($tipo, $nombre, $salida_ciudad, $salida_fecha, $salida_hora, $llegada_ciudad, $llegada_fecha, $llegada_hora) {
+    if ($tipo != NULL && $nombre != NULL && $salida_ciudad != NULL && $salida_fecha != NULL && $salida_hora != NULL && $llegada_ciudad != NULL && $llegada_fecha != NULL && $llegada_hora != NULL) {
+        $cadena = "host='192.168.169.90' port='5432' dbname='solicitudes' user='postgres' password='1npb0n1t4'";
+        $con = pg_connect($cadena) or die("Error conexion" . pg_last_error());
+        $sql = "INSERT INTO ruta(
+            tipo_transporte, nombre_transporte, salida_ciudad, salida_fecha, 
+            salida_hora, llegada_ciudad, llegada_fecha, llegada_hora)
+    VALUES (" . $tipo . ", '" . $nombre . "', (select nombre from ecuador_cantones where oid=" . $salida_ciudad . "), '" . $salida_fecha . "', 
+            '" . $salida_hora . "', (select nombre from ecuador_cantones where oid=" . $llegada_ciudad . "), '" . $llegada_fecha . "', '" . $llegada_hora . "');";
+
+        //$sql = "INSERT INTO ruta(salida, llegada) VALUES ('" . $salida . "','" . $llegada . "');";
         //$sql="select * from ruta where oid=".$id.";";
+        //echo $sql;       
         $result = pg_query($sql) or die("Error sql" . pg_last_error());
-        var_dump($result);
-        //
-        //return $cont;
+        // var_dump($result);
+        if (!$result) {
+            $valor = 0;
+            exit;
+        } else {
+            $valor = 1;
+        }
     } else {
         echo"cadena vacia desde la funcion guardar_ruta";
     }
+    pg_close();
+    return $valor;
 }
 
 function editar_registro($id) {
-//    $sql = "SELECT * FROM ruta WHERE id=" . $id . ";";
-//    $res = pg_query($sql) or die("Error sql" . pg_last_error());
-//    $row = pg_fetch_array($res, NULL, PGSQL_ASSOC);
-    $prueba = "01";
-    $retval = '<form method="POST" action="" class="register">
-            <h1>Editar Ruta</h1>            
-            <fieldset class="row2">
-                <legend>Datos
-                </legend>
-                <p>
-                    <label>Tipo de Transporte
-                    </label>
-                    <select name="tipo" id="tipo">
-                        <?php echo lista_tipo_transporte() ?>
-                    </select>
-                </p>
-                <p>
-                    <label>Nombre de Transporte
-                    </label>
-                    <input type="text" class="long" value=' . $prueba . '>
-                </p>
-            </fieldset> 
-            <fieldset></fieldset>
+    $tipo_transporte = "";
+    $transporte = "";
+    $salida_ciudad = "";
+    $salida_fecha = "";
+    $salida_hora = "";
+    $llegada_ciudad = "";
+    $llegada_fecha = "";
+    $llegada_hora = "";
+    $cadena = "host='192.168.169.90' port='5432' dbname='solicitudes' user='postgres' password='1npb0n1t4'";
+    $con = pg_connect($cadena) or die("Error conexion" . pg_last_error());
+    $sql = "select tipo_transporte,nombre_transporte,salida_ciudad,salida_fecha,salida_hora,llegada_ciudad,llegada_fecha,llegada_hora from ruta r, transporte_tipo t where r.tipo_transporte=t.oid and r.oid=" . $id . ";";
+    $res = pg_query($sql) or die("Error sql" . pg_last_error());
+    while ($row = pg_fetch_array($res, NULL, PGSQL_ASSOC)) {
+        $tipo_transporte = $row['tipo_transporte'];
+        $transporte = $row['nombre_transporte'];
+        $salida_ciudad = $row['salida_ciudad'];
+        $salida_fecha = $row['salida_fecha'];
+        $salida_hora = $row['salida_hora'];
+        $llegada_ciudad = $row['llegada_ciudad'];
+        $llegada_fecha = $row['llegada_fecha'];
+        $llegada_hora = $row['llegada_hora'];
+    }
+    pg_close($con);
 
-            <fieldset class="row4">               
-                <legend> Salida
-                </legend>                                
-                <p>
-                    <label>Ciudad *
-                    </label>
-                    <select name="provincia" id="provincia">
-//                        
-                    </select>                   
-                </p>
-                <p>
-                    <label>Fecha de Salida
-                    </label>
-                    <input style="border: 1px solid #E1E1E1;" type="date" name="bday"/>
-                </p>
-                <p>
-                    <label> Hora Salida
-                    </label>
-                    <input style="border: 1px solid #E1E1E1;" type="time" name="bday"/>
-                </p>
-            </fieldset>
-            <fieldset class="row5">
-                <legend> Llegada
-                </legend>                                
-                <p>
-                    <label>Ciudad *
-                    </label>
-                    <select name="provincia" id="provincia">
-                        
-                    </select>                   
-                </p>
-                <p>
-                    <label>Fecha de Salida
-                    </label>
-                    <input style="border: 1px solid #E1E1E1;" type="date" name="bday"/>
-                </p>
-                <p>
-                    <label> Hora Salida
-                    </label>
-                    <input style="border: 1px solid #E1E1E1;" type="time" name="bday"/>
-                </p>  
-            </fieldset>
-            <br />          
-            <br />
-            <div> <input type="submit" class="button" name="Submit" value="Guardar" onclick="cerrar()"/></div>
-        </form>
-	';
-    return $retval;
+    return array($tipo_transporte, $transporte, $salida_ciudad, $salida_fecha, $salida_hora, $llegada_ciudad, $llegada_fecha, $llegada_hora);
 }
 
 function eliminar_registro($id) {
-    $sql = "SELECT * FROM ruta WHERE id=" . $id . ";";
+    $cadena = "host='192.168.169.90' port='5432' dbname='solicitudes' user='postgres' password='1npb0n1t4'";
+    $con = pg_connect($cadena) or die("Error conexion" . pg_last_error());
+    //$sql = "SELECT * FROM ruta WHERE id=" . $id . ";";
+    $sql = "select r.oid as id,t.nombre as nombre,nombre_transporte,salida_ciudad,salida_fecha,salida_hora,llegada_ciudad,llegada_fecha,llegada_hora from ruta r, transporte_tipo t where r.tipo_transporte=t.oid and r.oid=" . $id . ";";
     $res = pg_query($sql) or die("Error sql" . pg_last_error());
     $row = pg_fetch_array($res, NULL, PGSQL_ASSOC);
 
     $retval = '
 	<form name="contacto" action="" method="POST">
 	<input type="hidden" name="id" value="' . $row['id'] . '"/>
-	<table align="center" border=0>
+	<table align="center">
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Nombre</th>
+                            <th>Ruta</th>
+                            <th colspan=\'2\'>Salida</th>
+                            <th colspan=\'2\'>Llegada</th>                            
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                            <th>Fecha</th>
+                            <th>Hora</th>                            
+                        </tr>
+                        <tr bgcolor=#CEE3F6>                            
+                            <td>' . $row['nombre'] . '</td>
+                            <td>' . $row['nombre_transporte'] . '</td>
+                            <td>' . $row['salida_ciudad'] . '-' . $row['llegada_ciudad'] . '</td>
+                            <td>' . $row['salida_fecha'] . '</td>
+                            <td>' . $row['salida_hora'] . '</td>
+                            <td align="center">' . $row['llegada_fecha'] . '</td>	
+                            <td align="center">' . $row['llegada_hora'] . '</td>	                            
+                        </tr>	
 			<tr>
-				<td colspan="2" align="center"><b>Dese eliminar el siguiente registro?</b></td>
-			</tr>
-			<tr>
-				<td><b>Salida: </b></td>
-				<td><input type="text" readonly="readonly" name="salida" value="' . $row['salida'] . '"></td>
-			</tr>
-			<tr>
-				<td><b>Llegada: </b></td>
-				<td><input type="text" readonly="readonly" name="llegada" size="2" value="' . $row['llegada'] . '"></td>
-			</tr>			
-			<tr>
-				<td colspan=2 align="center"><input type="submit" name="envia" value="Eliminar" onclick="cerrar()"></td>
-                                <td colspan=2 align="center"><input type="submit" name="cancela" value="Cancelar" onclick="cerrar()"></td>
+                            <td colspan=2 align="center"><input type="submit" name="eliminar" value="Eliminar" onclick="cerrar()"</td>
+                            <td colspan=2 align="center"><input type="submit" name="cancela" value="Cancelar" onclick="cerrar()"></td>
 			</tr>								
 		</table>
 		</form>';

@@ -25,7 +25,7 @@ session_start();
 if (isset($_SESSION['nombre'])) {
     $nombre = $_SESSION['nombre'];
     $oid = $_SESSION['id'];
-    list($cedula, $nombre,$unidad,$puesto) = datos_usuario($oid);
+    list($cedula, $nombre, $unidad, $puesto) = datos_usuario($oid);
 } else {
     header("Location: /proyecto-git-php/proyecto-php/index.php");
     $nombre = "No has iniciado sesion";
@@ -34,7 +34,7 @@ if (isset($_SESSION['nombre'])) {
 <!DOCTYPE html>
 <html>
     <head>
-
+        <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="css/estilo.css" media="screen" />
         <link type="text/css" rel="stylesheet" href="css/jquery-ui.css"/>
         <link rel="stylesheet" type="text/css" href="css/default.css"/>
@@ -50,8 +50,8 @@ if (isset($_SESSION['nombre'])) {
         </script>
         <script>
             $(document).ready(function () {
-                
-                
+
+
                 $('#provincia').change(function () {
                     var code = $(this).val();
                     var data = 'provincia=' + code;
@@ -121,15 +121,21 @@ if (isset($_SESSION['nombre'])) {
         </script>
         <script>
             function abrir() {
-                window.open("/proyecto-git-php/proyecto-php/agregar_ruta.php", "", "width=500,height=300");
+                var winHeight = document.documentElement.offsetHeight;
+                var winWidth = document.body.offsetWidth;
+                window.open("/proyecto-git-php/proyecto-php/agregar_ruta.php", "", "resizable=1,status=1,scrollbars=1,width=" + winWidth + ",height=" + winHeight + ",left=0,top=0");
             }
 
             function editar(id) {
-                window.open("/proyecto-git-php/proyecto-php/editar_ruta.php?id=" + id, "", "width=500,height=300");
+                var winHeight = document.documentElement.offsetHeight;
+                var winWidth = document.body.offsetWidth;
+                window.open("/proyecto-git-php/proyecto-php/editar_ruta.php?id=" + id, "", "resizable=1,status=1,scrollbars=1,width=" + winWidth + ",height=" + winHeight + ",left=0,top=0");
             }
 
             function eliminar(id) {
-                window.open("/proyecto-git-php/proyecto-php/eliminar_ruta.php?id=" + id, "", "width=500,height=300");
+                var winHeight = document.documentElement.offsetHeight;
+                var winWidth = document.body.offsetWidth;
+                window.open("/proyecto-git-php/proyecto-php/eliminar_ruta.php?id=" + id, "", "resizable=1,status=1,scrollbars=1,width=" + winWidth + ",height=" + winHeight + ",left=0,top=0");
             }
             function cargar() {
                 var table = document.getElementById("viajes");

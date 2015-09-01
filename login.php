@@ -1,14 +1,18 @@
 <?php
 require 'utilitarios/listas.php';
+require 'utilitarios/class.php';
 
-echo "unidad".$_POST['unidad']."<br />";
-echo "unidad_chk".$_POST['unidad_chk']."<br />";
-echo "autoridad".$_POST['autoridad']."<br />";
-echo "autoridad_chk".$_POST['autoridad_chk']."<br />";
-$resultado=crear_solicitud($_POST['autorizacion'], $_POST['fecha_solicitud'],$_POST['provincia'],$_POST['ciudad'],
-        $_POST['salida_fecha'],$_POST['salida_hora'],$_POST['llegada_fecha'],$_POST['llegada_hora'],$_POST['integrantes'],
-        $_POST['descripcion'],$_POST['nombre_banco'],$_POST['tipo_cuenta'],$_POST['numero_cuenta'],$_POST['unidad'],
-        $_POST['unidad_chk'],$_POST['autoridad'],$_POST['autoridad_chk']);
+
+echo "tipo".$_POST['tipo']."<br />";
+echo "nombre".$_POST['nombre']."<br />";
+echo "salida_ciudad".$_POST['salida_ciudad']."<br />";
+echo "salida_fecha".$_POST['salida_fecha']."<br />";
+echo "salida_hora".$_POST['salida_hora']."<br />";
+echo "llegada_ciudad".$_POST['llegada_ciudad']."<br />";
+echo "llegada_fecha".$_POST['llegada_fecha']."<br />";
+echo "llegada_hora".$_POST['llegada_hora']."<br />";
+$resultado=  actualizar_ruta(37,$_POST['tipo'], $_POST['nombre'], $_POST['salida_ciudad'], $_POST['salida_fecha']
+        , $_POST['salida_hora'], $_POST['llegada_ciudad'], $_POST['llegada_fecha'], $_POST['llegada_hora']); //returns omg lol;	       
         if($resultado==1){
             echo "registro guardado";
         }else{

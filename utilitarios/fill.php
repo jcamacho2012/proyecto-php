@@ -9,7 +9,7 @@ require ("listas.php");
  */
 
 if (isset($_POST['provincia'])) {
-    echo lista_ciudad($_POST['provincia']);
+    echo lista_ciudad($_POST['provincia'],'default');
 } else if (isset($_POST['ciudad'])) {
     echo lista_parroquia($_POST['ciudad']);
 } else if (isset($_POST['q'])) {

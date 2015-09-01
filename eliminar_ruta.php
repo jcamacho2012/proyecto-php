@@ -10,17 +10,19 @@ require ("utilitarios/class.php");
                 window.close();
             }
         </script>
+        <meta charset="UTF-8"></meta>
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
         <meta name="robots" content="ALL"/>
     </head>
     <body>
+        <h1>¿Desea eliminar el siguiente registro?</h1>
         <div>
             <?php
             echo eliminar_registro($_GET['id']);
             if (isset($_POST['id'])) {
                 $id = $_POST['id'];
             }
-            if (isset($_POST['envia'])) {
+            if (isset($_POST['eliminar'])) {
                 if (empty($id) == false) {
                     eliminar_ruta($id); //returns omg lol;	
                 } else {
